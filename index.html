@@ -11,47 +11,66 @@
   </style>
 </head>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center px-4">
+    <div class="w-full max-w-xl bg-white shadow-xl rounded-2xl p-8">
+      <h1 class="text-3xl font-bold mb-2 text-center text-gray-800">FastAPI Project Generator</h1>
+      <p id="description" class="text-gray-500 mb-6 text-center"></p>
+  
+      <form id="projectForm" class="space-y-6">
 
-  <div class="w-full max-w-lg bg-white shadow-xl rounded-2xl p-8">
-    <h1 class="text-3xl font-bold mb-2 text-center text-gray-800">FastAPI Project Generator</h1>
-    <p class="text-gray-500 mb-6 text-center">Customize your project and download a ready-to-go FastAPI backend.</p>
-
-    <form id="projectForm" class="space-y-4">
-      <div>
-        <label class="block text-sm font-medium text-gray-700">Project Name</label>
-        <input type="text" id="projectName" required placeholder="my-fastapi-app"
-          class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium text-gray-700">Options</label>
-        <div class="mt-2 space-y-2">
-          <label class="flex items-center space-x-2">
-            <input type="checkbox" id="includeDb" class="accent-indigo-500">
-            <span>Include database setup</span>
-          </label>
-          <label class="flex items-center space-x-2">
-            <input type="checkbox" id="includeDocker" class="accent-indigo-500">
-            <span>Add Dockerfile</span>
-          </label>
-          <label class="flex items-center space-x-2">
-            <input type="checkbox" id="includeTests" class="accent-indigo-500">
-            <span>Include basic tests</span>
-          </label>
-        </div>
-      </div>
-
-      <button type="submit"
-        class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">
+        <fieldset class="border border-gray-200 p-4 rounded-md">
+          <legend class="text-sm font-semibold text-gray-700 px-1">Project Metadata</legend>
+      
+          <!-- Project Name -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Project Name</label>
+            <input type="text" id="project-name" required placeholder="my-fastapi-app"
+              class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
+          </div>
+      
+          <!-- Authors -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Authors</label>
+            <input type="text" id="authors" placeholder="Name <email@example.com>"
+              class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
+          </div>
+      
+          <!-- License -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700">License</label>
+            <input type="text" id="license" placeholder="MIT"
+              class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
+          </div>
+      
+          <!-- Description -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Project Description</label>
+            <input type="text" id="project-description" placeholder="My FastAPI project"
+              class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
+          </div>
+      
+          <!-- Python Version -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Python Version</label>
+            <input type="text" id="python-version" required placeholder="3.10"
+              class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
+          </div>
+        </fieldset>
+      
+      </form>
+      
+      
+      <button id="generateBtn" disabled
+        class="w-full bg-indigo-400 text-white font-semibold py-2 px-4 rounded-lg transition duration-200 mt-4 cursor-not-allowed">
         Generate Project
       </button>
-    </form>
-
-    <div id="statusMessage" class="text-center mt-4 text-sm text-gray-500 hidden">Preparing your project...</div>
-  </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.0/jszip.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-  <script src="script.js"></script>
-</body>
+  
+      <div id="statusMessage" class="text-center mt-4 text-sm text-gray-500 hidden">Preparing your project...</div>
+    </div>
+  
+    <!-- JS deps -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.0/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="script.js" defer></script>
+  </body>
+  
 </html>
