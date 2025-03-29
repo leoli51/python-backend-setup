@@ -1,0 +1,23 @@
+[
+  "tests/test_managers.py",
+  "tests/test_routes.py",
+  "tests/conftest.py",
+  "{{project-name}}/settings.py",
+  "{{project-name}}/app.py",
+  "{{project-name}}/dependencies.py",
+  "{{project-name}}/routes/__init__.py",
+  "{{project-name}}/routes/v0/__init__.py",
+  "{{project-name}}/routes/v0/greetings/api.py",
+  "{{project-name}}/routes/v0/greetings/__init__.py",
+  "{{project-name}}/routes/v0/constants.py",
+  "{{project-name}}/__init__.py",
+  "{{project-name}}/main.py",
+  "{{project-name}}/common/managers/greetings_manager.py",
+  "{{project-name}}/common/managers/__init__.py",
+  "{{project-name}}/common/__init__.py",
+  "{{project-name}}/common/exception_handlers.py",
+  "{{project-name}}/common/exceptions.py",
+  "env_files/env.dev",
+  "env_files/env.debug",
+  "env_files/env.prod"
+]

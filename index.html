@@ -22,8 +22,19 @@
       
           <!-- Project Name -->
           <div>
-            <label class="block text-sm font-medium text-gray-700">Project Name</label>
+            <label class="block text-sm font-medium text-gray-700">
+              Project Name <span class="text-red-500">*</span>
+            </label>            
             <input type="text" id="project-name" required placeholder="my-fastapi-app"
+              class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
+          </div>
+
+          <!-- Python Version -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700">
+              Python Version <span class="text-red-500">*</span>
+            </label>            
+            <input type="text" id="python-version" required placeholder="3.10"
               class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
           </div>
       
@@ -34,27 +45,36 @@
               class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
           </div>
       
-          <!-- License -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700">License</label>
-            <input type="text" id="license" placeholder="MIT"
-              class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
-          </div>
-      
           <!-- Description -->
           <div>
             <label class="block text-sm font-medium text-gray-700">Project Description</label>
             <input type="text" id="project-description" placeholder="My FastAPI project"
               class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
           </div>
-      
-          <!-- Python Version -->
+          
+          <!-- License -->
           <div>
-            <label class="block text-sm font-medium text-gray-700">Python Version</label>
-            <input type="text" id="python-version" required placeholder="3.10"
+            <label class="block text-sm font-medium text-gray-700">License</label>
+            <input type="text" id="license" placeholder="MIT"
               class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
           </div>
+
         </fieldset>
+        
+        <fieldset class="border border-gray-200 p-4 rounded-md">
+          <legend class="text-sm font-semibold text-gray-700 px-1">Optional Features</legend>
+        
+          <!-- VSCode Run Config -->
+          <div class="flex items-center justify-between">
+            <label for="include-vscode" class="text-sm text-gray-700">Include VSCode run config</label>
+            <input
+              id="include-vscode"
+              type="checkbox"
+              class="h-5 w-5 text-indigo-600 rounded border-gray-300 focus:ring-indigo-500"
+            />
+          </div>
+        </fieldset>
+        
       
       </form>
       
@@ -70,6 +90,7 @@
     <!-- JS deps -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.0/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mustache@4.2.0/mustache.min.js"></script>
     <script src="script.js" defer></script>
   </body>
   

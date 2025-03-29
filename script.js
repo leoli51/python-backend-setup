@@ -27,30 +27,47 @@ document.addEventListener("DOMContentLoaded", () => {
     
         const formData = {
           "project-name": document.getElementById("project-name").value.trim(),
-          "project-description": document.getElementById("project-description").value.trim(),
           "authors": document.getElementById("authors").value.trim(),
           "license": document.getElementById("license").value.trim(),
-          "python-version": document.getElementById("python-version").value.trim()
+          "project-description": document.getElementById("project-description").value.trim(),
+          "python-version": document.getElementById("python-version").value.trim(),
+          "include-vscode": document.getElementById("include-vscode").checked
         };
+        
+    
+        const foldersToLoad = [
+          { path: "templates/project", zipPath: "" },
+          { path: "templates/poetry", zipPath: "" },
+        ];
+    
+        if (formData["include-vscode"]) {
+          foldersToLoad.push({ path: "templates/vscode", zipPath: ".vscode" });
+        }
+    
+        const zip = new JSZip();
     
         try {
-          const res = await fetch("templates/pyproject.toml");
-          let template = await res.text();
+          for (const folder of foldersToLoad) {
+            const fileList = await fetch(`${folder.path}/files.json`).then(res => res.json());
     
-          // Replace placeholders in template
-          for (const [key, value] of Object.entries(formData)) {
-            const regex = new RegExp(`{{\\s*${key}\\s*}}`, "g");
-            template = template.replace(regex, value);
+            for (const fileName of fileList) {
+              const filePath = `${folder.path}/${fileName}`;
+              const templateText = await fetch(filePath).then(res => res.text());
+              const rendered = Mustache.render(templateText, formData);
+              const renderedName = Mustache.render(fileName, formData); // handles folders + files
+
+              const outputPath = folder.zipPath
+                ? `${folder.zipPath}/${renderedName}`
+                : `${renderedName}`;
+    
+              zip.file(outputPath, rendered);
+            }
           }
     
-          // Create and download ZIP
-          const zip = new JSZip();
-          zip.file("pyproject.toml", template);
-          const content = await zip.generateAsync({ type: "blob" });
-          saveAs(content, `${formData["project-name"] || "project"}.zip`);
+          const blob = await zip.generateAsync({ type: "blob" });
+          saveAs(blob, `${formData["project-name"] || "project"}.zip`);
         } catch (err) {
           console.error("Error generating project:", err);
         }
       });
     });
-    
