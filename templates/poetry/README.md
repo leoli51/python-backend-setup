@@ -6,6 +6,7 @@
 
 ```bash
 poetry install
+eval $(poetry env activate)
 ```
 
 ## Running
