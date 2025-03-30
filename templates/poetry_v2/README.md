@@ -21,12 +21,18 @@ To change and add environment variables and settings use the `env` files in the 
 ## Tests
 
 ```bash
+pytest
+# or
 poe test
 ```
 
 ## Format, Lint, and Type Checks
 
 ```bash
+ruff format
+ruff check
+mypy {{project-name}}
+# or
 poe format
 poe lint
 poe type-check 

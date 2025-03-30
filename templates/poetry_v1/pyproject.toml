@@ -1,0 +1,44 @@
+[tool.poetry]
+name = "{{project-name}}"
+version = "0.1.0"
+description = "{{project-description}}"
+authors = {{{authors}}}
+readme = "README.md"
+
+
+[tool.poetry.dependencies]
+python = "^{{python-version}}"
+fastapi = {extras = ["standard"], version = "^0.115.12"}
+pydantic-settings = "^2.8.1"
+python-dotenv = "^1.1.0"
+uvicorn = "^0.34.0"
+
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.15.0"
+poethepoet = "^0.33.1"
+ruff = "^0.11.2"
+pytest = "^8.3.5"
+httpx = "^0.28.1"
+
+
+[tool.poe.tasks]
+format = "ruff format"
+lint = "ruff check"
+type-check = "mypy {{project-name}}"
+run-dev = { cmd = "fastapi dev {{project-name}}/main.py --host $HOST --port $PORT --reload", envfile = "env_files/env.dev" }
+run-prod = { cmd = "fastapi run {{project-name}}/main.py --host $HOST --port $PORT --workers $WORKERS", envfile = "env_files/env.prod" }
+test = {cmd = "pytest", envfile = "env_files/env.dev" }
+
+
+[tool.mypy]
+plugins = ["pydantic.mypy"]
+
+
+[tool.pytest.ini_options]
+pythonpath = "."
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

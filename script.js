@@ -1,12 +1,28 @@
 document.addEventListener("DOMContentLoaded", () => {
     const generateBtn = document.getElementById("generateBtn");
-    const requiredFields = ["project-name", "python-version"]; // Add more if needed
+    const requiredFields = ["project-name", "python-version", "authors"]; // Add more if needed
   
+    function validateAuthors(raw) {
+      const errorEl = document.getElementById("authors-error");
+      const entries = raw.split(",").map(s => s.trim()).filter(Boolean);
+    
+      const valid = entries.every(entry => /^.+\s<.+@.+>$/.test(entry));
+    
+      if (!valid) {
+        errorEl.classList.remove("hidden");
+        return false;
+      } else {
+        errorEl.classList.add("hidden");
+        return true;
+      }
+    }
+    
     const checkRequiredFields = () => {
+      const authorsValid = validateAuthors(document.getElementById("authors").value.trim());
       const allFilled = requiredFields.every(id => {
         const el = document.getElementById(id);
         return el && el.value.trim() !== "";
-      });
+      }) && authorsValid;
   
       generateBtn.disabled = !allFilled;
       generateBtn.classList.toggle("bg-indigo-600", allFilled);
@@ -24,20 +40,43 @@ document.addEventListener("DOMContentLoaded", () => {
   
     generateBtn.addEventListener("click", async (e) => {
         e.preventDefault();
-    
+
+        const rawAuthors = document.getElementById("authors").value.trim();
+        const poetryVersion = document.getElementById("poetry-version").value;
+
+        const authors = rawAuthors
+          .split(",")
+          .map(s => s.trim())
+          .filter(Boolean);
+
+        let formattedAuthors;
+
+        if (poetryVersion === "v2") {
+          // Convert to array of objects
+          const objects = authors.map(entry => {
+            const match = entry.match(/^(.+)\s+<(.+)>$/);
+            if (!match) return null;
+            return `{name = "${match[1].trim()}", email = "${match[2].trim()}"}`;
+          }).filter(Boolean);
+          formattedAuthors = `[${objects.join(", ")}]`;
+        } else {
+          // Default to v1
+          formattedAuthors = `[${authors.map(a => `"${a}"`).join(", ")}]`;
+        }
+
         const formData = {
           "project-name": document.getElementById("project-name").value.trim(),
-          "authors": document.getElementById("authors").value.trim(),
+          "authors": formattedAuthors,
           "license": document.getElementById("license").value.trim(),
           "project-description": document.getElementById("project-description").value.trim(),
           "python-version": document.getElementById("python-version").value.trim(),
           "include-vscode": document.getElementById("include-vscode").checked
-        };
-        
+        };        
     
+        const poetryFolder = poetryVersion === "v2" ? "poetry_v2" : "poetry_v1";
         const foldersToLoad = [
           { path: "templates/project", zipPath: "" },
-          { path: "templates/poetry", zipPath: "" },
+          { path: `templates/${poetryFolder}`, zipPath: "" },
         ];
     
         if (formData["include-vscode"]) {

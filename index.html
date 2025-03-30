@@ -17,7 +17,7 @@
   
       <form id="projectForm" class="space-y-6">
 
-        <fieldset class="border border-gray-200 p-4 rounded-md">
+        <fieldset class="border border-gray-200 p-4 rounded-md space-y-2">
           <legend class="text-sm font-semibold text-gray-700 px-1">Project Metadata</legend>
       
           <!-- Project Name -->
@@ -37,12 +37,15 @@
             <input type="text" id="python-version" required placeholder="3.10"
               class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
           </div>
-      
+
           <!-- Authors -->
           <div>
-            <label class="block text-sm font-medium text-gray-700">Authors</label>
-            <input type="text" id="authors" placeholder="Name <email@example.com>"
+            <label class="block text-sm font-medium text-gray-700">
+              Authors <span class="text-red-500">*</span>
+            </label>
+            <input type="text" id="authors" placeholder="Name <email@example.com>, Another Name <mail@x.com>"
               class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
+            <p id="authors-error" class="text-sm text-red-500 mt-1 hidden">Invalid format. Use: Name LastName &lt;email@example.com&gt;</p>
           </div>
       
           <!-- Description -->
@@ -57,6 +60,16 @@
             <label class="block text-sm font-medium text-gray-700">License</label>
             <input type="text" id="license" placeholder="MIT"
               class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
+          </div>
+
+          <!-- Poetry Version-->
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Poetry Version</label>
+            <select id="poetry-version"
+              class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+              <option value="v1">Version 1</option>
+              <option value="v2">Version 2</option>
+            </select>
           </div>
 
         </fieldset>
