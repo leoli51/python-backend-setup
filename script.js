@@ -37,6 +37,52 @@ document.addEventListener("DOMContentLoaded", () => {
       const el = document.getElementById(id);
       if (el) el.addEventListener("input", checkRequiredFields);
     });
+
+    // Get comment prefix to add comments to empty files to prevent 404
+    function getCommentPrefix(fileName) {
+      const ext = fileName.split(".").pop().toLowerCase();
+    
+      switch (ext) {
+        case "py":
+        case "sh":
+        case "toml":
+        case "ini":
+        case "yml":
+        case "yaml":
+          return "#";
+        case "json":
+        case "js":
+        case "ts":
+          return "//";
+        case "md":
+          return "<!--";
+        default:
+          return "#";
+      }
+    }
+
+    const easterEggQuotes = [
+      "Beautiful is better than ugly.",
+      "Explicit is better than implicit.",
+      "Simple is better than complex.",
+      "Complex is better than complicated.",
+      "Flat is better than nested.",
+      "Sparse is better than dense.",
+      "Readability counts.",
+      "Special cases aren't special enough to break the rules.",
+      "Although practicality beats purity.",
+      "Errors should never pass silently.",
+      "Unless explicitly silenced.",
+      "In the face of ambiguity, refuse the temptation to guess.",
+      "There should be one-- and preferably only one --obvious way to do it.",
+      "Although that way may not be obvious at first unless you're Dutch.",
+      "Now is better than never.",
+      "Although never is often better than *right* now.",
+      "If the implementation is hard to explain, it's a bad idea.",
+      "If the implementation is easy to explain, it may be a good idea.",
+      "Namespaces are one honking great idea -- let's do more of those!"
+    ]
+    
   
     generateBtn.addEventListener("click", async (e) => {
         e.preventDefault();
@@ -98,8 +144,22 @@ document.addEventListener("DOMContentLoaded", () => {
               const outputPath = folder.zipPath
                 ? `${folder.zipPath}/${renderedName}`
                 : `${renderedName}`;
-    
-              zip.file(outputPath, rendered);
+
+              let finalContent = rendered;
+
+              // If the file is empty, add generator comment + random quote
+              if (rendered === "") {
+                const prefix = getCommentPrefix(fileName);
+                const quote = easterEggQuotes[Math.floor(Math.random() * easterEggQuotes.length)];
+              
+                if (prefix === "<!--") {
+                  finalContent = `${prefix} ${quote} -->`;
+                } else {
+                  finalContent = `${prefix} ${quote}`;
+                }
+              }
+                
+              zip.file(outputPath, finalContent);
             }
           }
     
