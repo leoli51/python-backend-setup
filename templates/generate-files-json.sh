@@ -19,15 +19,7 @@ for top_dir in "$BASE_DIR"/*/; do
   # Recursively find all files under this top-level dir, relative to it
   while IFS= read -r -d '' file; do
     relpath=$(realpath --relative-to="$top_dir" "$file")
-
-    # Skip the files.json we are generating
     [[ "$relpath" == "files.json" ]] && continue
-
-    # Check for empty files and warn
-    if [ ! -s "$file" ]; then
-      echo "⚠️  WARNING: '$relpath' is empty. GitHub Pages may inject HTML instead."
-    fi
-
     files+=("$relpath")
   done < <(find "$top_dir" -type f -print0)
 
