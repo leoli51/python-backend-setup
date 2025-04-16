@@ -42,7 +42,7 @@ poe type-check
 
 ```bash
 docker build \
-  --build-arg ENV_NAME=<prod|env|debug> \
+  --build-arg ENV_NAME=<development|production|debug> \
   --build-arg POETRY_VERSION=<poetry-version> \
   -t {{project-name}} .
 

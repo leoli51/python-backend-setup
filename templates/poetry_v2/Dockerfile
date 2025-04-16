@@ -1,5 +1,5 @@
 # --- Builder Stage ---
-FROM python:{{python-version}}-buster AS builder
+FROM python:{{python-version}}-slim AS builder
 
 ARG ENV_NAME
 ARG POETRY_VERSION
@@ -19,7 +19,7 @@ RUN touch README.md
 RUN --mount=type=cache,target=$POETRY_CACHE_DIR poetry install --without dev --no-root
 
 # --- Runtime Stage ---
-FROM python:{{python-version}}-slim-buster AS runtime
+FROM python:{{python-version}}-slim AS runtime
 
 ARG ENV_NAME
 ENV VIRTUAL_ENV=/app/.venv \

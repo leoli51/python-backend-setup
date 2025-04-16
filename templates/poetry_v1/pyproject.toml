@@ -26,9 +26,9 @@ httpx = "^0.28.1"
 format = "ruff format"
 lint = "ruff check"
 type-check = "mypy {{project-name}}"
-run-dev = { cmd = "fastapi dev {{project-name}}/main.py --host $HOST --port $PORT --reload", envfile = "env_files/env.dev" }
-run-prod = { cmd = "fastapi run {{project-name}}/main.py --host $HOST --port $PORT --workers $WORKERS", envfile = "env_files/env.prod" }
-test = {cmd = "pytest", envfile = "env_files/env.dev" }
+run-dev = { cmd = "fastapi dev {{project-name}}/main.py --host $HOST --port $PORT --reload", envfile = "env_files/env.development" }
+run-prod = { cmd = "fastapi run {{project-name}}/main.py --host $HOST --port $PORT --workers $WORKERS", envfile = "env_files/env.production" }
+test = {cmd = "pytest", envfile = "env_files/env.development" }
 
 
 [tool.mypy]
