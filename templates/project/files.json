@@ -18,6 +18,6 @@
   "{{project-name}}/common/exception_handlers.py",
   "{{project-name}}/common/exceptions.py",
   "env_files/env.debug",
-  "env_files/env.dev",
-  "env_files/env.prod"
+  "env_files/env.development",
+  "env_files/env.production"
 ]
